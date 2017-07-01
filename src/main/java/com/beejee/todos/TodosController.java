@@ -100,7 +100,7 @@ public class TodosController extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/todoes/*", "/totalPages", "/todo", "/todos.html", "/resources/**").permitAll()
+                .antMatchers("/todoes/*", "/totalPages", "/todo", "/todos.html", "/resources/**", "/").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic()
