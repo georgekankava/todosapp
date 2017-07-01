@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin page</title>
+    <link href="resources/css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="resources/js/angular.min.js"></script>
+    <script type="text/javascript" src="resources/js/controllers/admin.js"></script>
+</head>
+<body ng-app="todo" ng-controller="admController" style="background-color:#eee">
+    <div class="container">
+        <div class="row" style="margin-top: 50px;margin-bottom: 50px">
+            <div class="col-md-offset-5" style="font-size: 30px; font-weight: bold">
+                Todos
+            </div>
+            <div><a class="col-md-2" style="font-size: 16px;" href="todos.html">Create Todo</a></div>
+        </div>
+        <div class="row" style="margin-bottom: 15px">
+            <div ng-click="sortTodos('username')" style="font-size: 16px; font-weight: bold;" class='col-md-2'>Username</div>
+            <div ng-click="sortTodos('email')" style="font-size: 16px; font-weight: bold;" class='col-md-2'>Email</div>
+            <div style="font-size: 16px; font-weight: bold;" class='col-md-4'>Description</div>
+            <div ng-click="sortTodos('completed')" style="font-size: 16px; font-weight: bold;" class='col-md-1'>Completed</div>
+        </div>
+        <div class="row" style="padding: 5px" ng-repeat="todo in todos">
+            <div class="col-md-2">{{todo.username}}</div>
+            <div class="col-md-2">{{todo.email}}</div>
+            <div class="col-md-4"><textarea class="form-control"ng-model="todo.description"> {{todo.description}} </textarea></div>
+            <div class="col-md-1"><input class="form-control" type="checkbox" ng-checked="todo.completed" ng-model="todo.completed"/></div>
+            <div class="col-md-1"><button type="button" class="btn btn-success" ng-click="update($index)">update</button></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-offset-5">
+                <button type="button" class="btn btn-info" ng-click="previousPage()">Previous</button>
+                {{currentPage}} / {{totalPages}}
+                <button type="button" class="btn btn-info" ng-click="nextPage()">Next</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="resources/js/bootstrap.min.js"></script>
+</body>
+</html>

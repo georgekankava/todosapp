@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Create</title>
+
+    <!-- Bootstrap -->
+    <link href="resources/css/bootstrap.min.css" rel="stylesheet">
+    <script src="resources/js/angular.min.js"></script>
+    <![endif]-->
+</head>
+<body ng-app="todo" ng-controller="todoController" style="background-color:#eee">
+<div class="container">
+    <div class="row" style="margin-top: 30px;margin-bottom: 15px">
+        <span class="col-md-10" style="font-size: 22px; font-weight: bold;">Create your todo</span>
+        <a class="col-md-2" style="font-size: 16px;" href="edit.html">Edit Todo</a>
+    </div>
+    <form action="/todo" class="form-inline" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input class="form-control" ng-model="username" type="text" name="username" id="username">
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input class="form-control" ng-model="email" type="text" name="email" id="email">
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <input class="form-control" ng-model="description" name="description" id="description"></input>
+        </div>
+        <div class="form-group">
+            <label for="image">Image</label>
+            <input class="form-control" type="file" name="image" id="image" >
+        </div>
+        <div class="col-md-offset-5">
+            <button style="margin-top: 20px" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#todoModal">
+                Preview Todo
+            </button>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="todoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Save Todo</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-3" style="font-weight: bold; font-size: 14px;">Username</div>
+                            <div class="col-md-3" style="font-weight: bold; font-size: 14px;">Email</div>
+                            <div class="col-md-3" style="font-weight: bold; font-size: 14px;">Description</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">{{username}}</div>
+                            <div class="col-md-3">{{email}}</div>
+                            <div class="col-md-3">{{description}}</div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <h3>Todoes List</h3>
+    <table class="table">
+        <thead>
+            <th style="cursor: s-resize" ng-click="sortTodos('username')">Username</th>
+            <th style="cursor: s-resize" ng-click="sortTodos('email')">Email</th>
+            <th >Description</th>
+            <th>Image</th>
+            <th style="cursor: s-resize" ng-click="sortTodos('completed')">Completed</th>
+        </thead>
+        <tr ng-repeat="todo in todos">
+            <td>{{todo.username}}</td>
+            <td>{{todo.email}}</td>
+            <td>{{todo.description}}</td>
+            <td><img ng-if="todo.image" width="320" ng-src="data:image/JPEG;base64,{{todo.image}}"></td>
+            <td><input class="form-control" type="checkbox" ng-checked="todo.completed" ng-model="todo.completed" /></td>
+        </tr>
+    </table>
+    <div class="row">
+        <div class="col-lg-offset-5">
+            <button type="button" class="btn btn-info" ng-click="previousPage()">Previous</button>
+            {{currentPage}} / {{totalPages}}
+            <button type="button" class="btn btn-info" ng-click="nextPage()">Next</button>
+        </div>
+    </div>
+    <div style="margin-bottom: 100px" />
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="resources/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="resources/js/controllers/todos.js"></script>
+</body>
+</html>
